@@ -1,26 +1,30 @@
 import { useState } from 'react';
 
 export default function AppMain({ todoList }) {
-    const [newTask, setNewTask] = useState('New Task');
+    const [newTask, setNewTask] = useState('Aggiungi Nuova Task');
     const [tasks, setTasks] = useState(todoList);
 
     function handleSubmit(e) {
         e.preventDefault();
         console.log(newTask);
+        if (newTask === "" || '') {
+            alert('Il campo è vuoto, impossibile salvare inserire una task')
+        };
         setTasks([...tasks, newTask]);
-    }
+    };
+
     function handleClickRemove(index) {
         tasks.splice(index, 1);
         setTasks([...tasks]);
-    }
+    };
 
     return (
         <>
             <ul className="list-group list-unstyled d-flex justify-content-between">
                 {tasks.map((task, index) => {
                     return (
-                        <li key={index} className='list-group-item py-3 ps-4 ms-3'>{task}<button className='btn mx-2' onClick={() => handleClickRemove(index)}><i className='bi bi-trash px-1'></i></button></li>
-                    )
+                        <li key={index} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>{task}<button className='btn mx-2' onClick={() => handleClickRemove(index)}><i className='bi bi-trash px-1'></i></button></li>
+                    );
                 })}
             </ul>
             <form onSubmit={handleSubmit}>
@@ -34,5 +38,6 @@ export default function AppMain({ todoList }) {
 };
 
 // BONUS
-// Aggiungere la possibilità di cancellare ciascun articolo utilizzando un'icona.
 // Implementare la funzionalità di modifica del titolo di un post.
+
+
