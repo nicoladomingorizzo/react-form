@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-export default function AppMain({ todoList }) {
+export default function AppMain({ objectList }) {
     const [newTask, setNewTask] = useState('Aggiungi Nuova Task');
-    const [tasks, setTasks] = useState(todoList);
+    const [tasks, setTasks] = useState(objectList);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -13,9 +13,13 @@ export default function AppMain({ todoList }) {
         setTasks([...tasks, newTask]);
     };
 
-    function handleClickRemove(index) {
-        tasks.splice(index, 1);
-        setTasks([...tasks]);
+    function handleClickRemove(id) {
+        // tasks.splice(index, 1);
+        setTasks(prev => prev.filter((task) => task.id !== id));
+    };
+
+    function handleClickEdit(id) {
+        //     setTasks(prev => prev.map((task) => task.id === id));
     };
 
     return (
@@ -23,7 +27,11 @@ export default function AppMain({ todoList }) {
             <ul className="list-group list-unstyled d-flex justify-content-between">
                 {tasks.map((task, index) => {
                     return (
-                        <li key={index} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>{task}<button className='btn mx-2' onClick={() => handleClickRemove(index)}><i className='bi bi-trash px-1'></i></button></li>
+                        <li key={task.id} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>{task.title}
+                            <div>
+                                <button className='btn' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil px-1'></i></button><button className='btn' onClick={() => handleClickRemove(index)}><i className='bi bi-trash px-1'></i></button>
+                            </div>
+                        </li>
                     );
                 })}
             </ul>

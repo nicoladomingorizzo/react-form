@@ -1,13 +1,13 @@
 import AppHeader from "./components/AppHeader"
 import AppMain from "./components/AppMain"
-import todoList from "./db/todoList"
+import objectList from "./db/objectList"
 
 function App() {
 
   return (
     <>
       <AppHeader />
-      <AppMain todoList={todoList} />
+      <AppMain objectList={objectList} />
     </>
   )
 }
