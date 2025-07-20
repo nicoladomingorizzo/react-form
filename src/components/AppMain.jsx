@@ -9,12 +9,12 @@ export default function AppMain({ objectList }) {
     function handleSubmit(e) {
         e.preventDefault();
         // console.log(newObject);
-        if (newObject.trim() === "" || '') {
+        if (newObject.trim() === '') {
             alert('Il campo è vuoto, impossibile salvare inserire una object')
         };
-        return;
-        setObjects([...objects, { id: (objects.length), title: newObject }]);
+        setObjects([...objects, { id: Date.now(), title: newObject }]); //ho cambiato (objects.length) con Date.now() perché mi crea un nuovo id in base alla data, avevo trovato anche useRef ma ho visto che è più macchinoso quindi ho optato per questo
         setNewObject('');
+        return;
     };
 
     function handleClickRemove(id) {
@@ -59,7 +59,7 @@ export default function AppMain({ objectList }) {
                                         <input className='form-control mt-2 py-2 ps-4 ms-3' placeholder={object.title} type="text" value={editedObj} onChange={e => setEditedObj(e.target.value)} />
                                         <div className='d-flex justify-content-between align-items-center mt-2'>
                                             <button className='btn btn-outline-primary mx-1' type='submit' onClick={() => handleClickSave(index)}><i className='bi bi-floppy'>Salva</i></button>
-                                            <button className='btn btn-outline-warning' onClick={() => setEditingObj(null)}><i class="bi bi-x-octagon">Annulla</i></button>
+                                            <button className='btn btn-outline-warning' onClick={() => setEditingObj(null)}><i className="bi bi-x-octagon">Annulla</i></button>
                                         </div>
                                     </>
                                 ) : (
