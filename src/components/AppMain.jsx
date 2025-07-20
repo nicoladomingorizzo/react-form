@@ -3,42 +3,72 @@ import { useState } from 'react';
 export default function AppMain({ objectList }) {
     const [newObject, setNewObject] = useState('Aggiungi un nuovo oggetto');
     const [objects, setObjects] = useState(objectList);
+    const [editingObj, setEditingObj] = useState(null);
+    const [editedObj, setEditedObj] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(newObject);
+        // console.log(newObject);
         if (newObject === "" || '') {
-            alert('Il campo è vuoto, impossibile salvare inserire una task')
+            alert('Il campo è vuoto, impossibile salvare inserire una object')
         };
-        setObjects([...objects, newObject]);
+        setObjects([...objects, { id: (objects.length), title: newObject }]);
+        setNewObject('');
     };
 
     function handleClickRemove(id) {
         // objects.splice(index, 1);
-        setObjects(prev => prev.filter((task) => task.id !== id));
+        setObjects(prev => prev.filter((object) => object.id !== id));
     };
 
-    function handleClickEdit(id) {
-        // setObjects(prev => prev.map(task, title => {
-
-        //     if (task.id === id) {
-        //         task.title = '<h1>Lorem ipsum dolor sit amet.</h1>'
-        //         // <input className='form-control  py-3 ps-4 ms-3' placeholder={title} type="text" value={setObjects} onChange={e => setNewObject(e.target.value)} />
-        //     }
-        //     return task
+    function handleClickEdit(index) {
+        // setObjects(prev => {
+        //     return prev.map(object => {
+        //         if (object.id === id) {
+        //             object.title = title;
+        //         }
+        //         return object
+        //     })
         // }
-        // ))
+        // )
+        setEditingObj(objects[index].id);
+        setEditedObj(objects[index].title);
+        ;
+
+    };
+
+    function handleClickSave(index) {
+        objects[index] = {
+            ...objects[index],
+            title: editedObj
+        };
+        setObjects([...objects]);
+        setEditingObj(null);
     };
 
     return (
         <>
             <ul className="list-group list-unstyled d-flex justify-content-between">
-                {objects.map(task => {
+                {objects.map((object, index) => {
                     return (
-                        <li key={task.id} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>{task.title}
-                            <div>
-                                <button className='btn' onClick={() => handleClickEdit(task.id)}><i className='bi bi-pencil px-1'></i></button><button className='btn' onClick={() => handleClickRemove(task.id)}><i className='bi bi-trash px-1'></i></button>
-                            </div>
+                        <li key={object.id} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>
+                            {
+                                editingObj === object.id ? (
+                                    <>
+                                        <input className='form-control mt-2 py-2 ps-4 ms-3' placeholder={object.title} type="text" value={editedObj} onChange={e => setEditedObj(e.target.value)} />
+                                        <button onClick={() => handleClickSave(index)}>salva</button>
+                                        <button onClick={() => setEditingObj(null)}>annulla</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        {object.title}
+                                        <div>
+                                            <button className='btn' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil px-1'></i></button>
+                                            <button className='btn' onClick={() => handleClickRemove(object.id)}><i className='bi bi-trash px-1'></i></button>
+                                        </div>
+                                    </>
+                                )
+                            }
                         </li>
                     );
                 })}
