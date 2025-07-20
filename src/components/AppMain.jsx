@@ -10,8 +10,8 @@ export default function AppMain({ objectList }) {
         e.preventDefault();
         // console.log(newObject);
         if (newObject.trim() === '') {
-            alert('Il campo è vuoto, impossibile salvare inserire una object')
-        };
+            alert('Il campo è vuoto, impossibile salvare. Inserisci un nuovo oggetto')
+        }; //non funziona pienamente, salva l'oggetto vuoto
         setObjects([...objects, { id: Date.now(), title: newObject }]); //ho cambiato (objects.length) con Date.now() perché mi crea un nuovo id in base alla data, avevo trovato anche useRef ma ho visto che è più macchinoso quindi ho optato per questo
         setNewObject('');
         return;
@@ -78,7 +78,7 @@ export default function AppMain({ objectList }) {
             </ul>
             <form className='container' onSubmit={handleSubmit}>
                 <div className='d-flex'>
-                    <input className='form-control my-2 py-2 ps-4 ms-1' placeholder='Inserisci una nuova Cosa da fare' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
+                    <input className='form-control my-2 py-2 ps-4 ms-1' placeholder='Inserisci un nuovo oggetto' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
                     <button className='btn btn-outline-primary my-2' type='submit'><i className='bi bi-floppy'>Salva</i></button>
                 </div>
             </form>
