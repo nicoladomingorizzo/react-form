@@ -58,16 +58,16 @@ export default function AppMain({ objectList }) {
                                     <>
                                         <input className='form-control mt-2 py-2 ps-4 ms-3' placeholder={object.title} type="text" value={editedObj} onChange={e => setEditedObj(e.target.value)} />
                                         <div className='d-flex justify-content-between align-items-center mt-2'>
-                                            <button className='btn btn-primary mx-1' type='submit' onClick={() => handleClickSave(index)}>salva</button>
-                                            <button className='btn btn-warning' onClick={() => setEditingObj(null)}>annulla</button>
+                                            <button className='btn btn-outline-primary mx-1' type='submit' onClick={() => handleClickSave(index)}><i className='bi bi-floppy'>Salva</i></button>
+                                            <button className='btn btn-outline-warning' onClick={() => setEditingObj(null)}><i class="bi bi-x-octagon">Annulla</i></button>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         {object.title}
-                                        <div>
-                                            <button className='btn btn-secondary mx-1' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil '></i></button>
-                                            <button className='btn btn-danger' onClick={() => handleClickRemove(object.id)}><i className='bi bi-trash'></i></button>
+                                        <div >
+                                            <button className='btn btn-outline-secondary mx-1' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil '>Modifica</i></button>
+                                            <button className='btn btn-outline-danger' onClick={() => handleClickRemove(object.id)}><i className='bi bi-trash'>Elimina</i></button>
                                         </div>
                                     </>
                                 )
@@ -78,8 +78,8 @@ export default function AppMain({ objectList }) {
             </ul>
             <form className='container' onSubmit={handleSubmit}>
                 <div className='d-flex'>
-                    <input className='form-control mt-2 py-2 ps-4 ms-1' placeholder='Inserisci una nuova Cosa da fare' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
-                    <button className='btn mt-2' type='submit'><i className='bi bi-floppy'>Salva</i></button>
+                    <input className='form-control my-2 py-2 ps-4 ms-1' placeholder='Inserisci una nuova Cosa da fare' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
+                    <button className='btn btn-outline-primary my-2' type='submit'><i className='bi bi-floppy'>Salva</i></button>
                 </div>
             </form>
         </>
