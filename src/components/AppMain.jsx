@@ -9,9 +9,10 @@ export default function AppMain({ objectList }) {
     function handleSubmit(e) {
         e.preventDefault();
         // console.log(newObject);
-        if (newObject === "" || '') {
+        if (newObject.trim() === "" || '') {
             alert('Il campo è vuoto, impossibile salvare inserire una object')
         };
+        return;
         setObjects([...objects, { id: (objects.length), title: newObject }]);
         setNewObject('');
     };
@@ -48,7 +49,7 @@ export default function AppMain({ objectList }) {
 
     return (
         <>
-            <ul className="list-group list-unstyled d-flex justify-content-between">
+            <ul className="list-group list-unstyled d-flex justify-content-between container">
                 {objects.map((object, index) => {
                     return (
                         <li key={object.id} className='list-group-item py-3 ps-4 ms-3 d-flex justify-content-between align-items-center'>
@@ -56,15 +57,17 @@ export default function AppMain({ objectList }) {
                                 editingObj === object.id ? (
                                     <>
                                         <input className='form-control mt-2 py-2 ps-4 ms-3' placeholder={object.title} type="text" value={editedObj} onChange={e => setEditedObj(e.target.value)} />
-                                        <button onClick={() => handleClickSave(index)}>salva</button>
-                                        <button onClick={() => setEditingObj(null)}>annulla</button>
+                                        <div className='d-flex justify-content-between align-items-center mt-2'>
+                                            <button className='btn btn-primary mx-1' type='submit' onClick={() => handleClickSave(index)}>salva</button>
+                                            <button className='btn btn-warning' onClick={() => setEditingObj(null)}>annulla</button>
+                                        </div>
                                     </>
                                 ) : (
                                     <>
                                         {object.title}
                                         <div>
-                                            <button className='btn' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil px-1'></i></button>
-                                            <button className='btn' onClick={() => handleClickRemove(object.id)}><i className='bi bi-trash px-1'></i></button>
+                                            <button className='btn btn-secondary mx-1' onClick={() => handleClickEdit(index)}><i className='bi bi-pencil '></i></button>
+                                            <button className='btn btn-danger' onClick={() => handleClickRemove(object.id)}><i className='bi bi-trash'></i></button>
                                         </div>
                                     </>
                                 )
@@ -73,10 +76,10 @@ export default function AppMain({ objectList }) {
                     );
                 })}
             </ul>
-            <form onSubmit={handleSubmit}>
+            <form className='container' onSubmit={handleSubmit}>
                 <div className='d-flex'>
-                    <input className='form-control mt-2 py-2 ps-4 ms-3' placeholder='Inserisci una nuova Cosa da fare' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
-                    <button className='btn' type='submit'><i className='bi bi-floppy'>Salva</i></button>
+                    <input className='form-control mt-2 py-2 ps-4 ms-1' placeholder='Inserisci una nuova Cosa da fare' type="text" value={newObject} onChange={e => setNewObject(e.target.value)} />
+                    <button className='btn mt-2' type='submit'><i className='bi bi-floppy'>Salva</i></button>
                 </div>
             </form>
         </>
