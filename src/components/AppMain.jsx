@@ -11,10 +11,10 @@ export default function AppMain({ objectList }) {
         // console.log(newObject);
         if (newObject.trim() === '') {
             alert('Il campo è vuoto, impossibile salvare. Inserisci un nuovo oggetto')
-        }; //non funziona pienamente, salva l'oggetto vuoto
-        setObjects([...objects, { id: Date.now(), title: newObject }]); //ho cambiato (objects.length) con Date.now() perché mi crea un nuovo id in base alla data, avevo trovato anche useRef ma ho visto che è più macchinoso quindi ho optato per questo
+            return;
+        }; //FIXME: non funziona pienamente, salva l'oggetto vuoto
+        setObjects([...objects, { id: Date.now(), title: newObject }]); //NOTE: ho cambiato (objects.length) con Date.now() perché mi crea un nuovo id in base alla data, avevo trovato anche useRef ma ho visto che è più macchinoso quindi ho optato per questo
         setNewObject('');
-        return;
     };
 
     function handleClickRemove(id) {
